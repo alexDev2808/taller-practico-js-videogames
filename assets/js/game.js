@@ -8,21 +8,24 @@ window.addEventListener('load', startGame)
 
 function startGame(){
 
-    /*
-    Para las coordenadas las 2 primeras son para indicar donde es que van a empezar, el primer 0 es para el eje X(horizontal), y(vertical), y las siguientes 2 coordenadas son para el ancho y alto de la figura
-    */
-    // game.fillRect(0,0,100,100)
-    // game.clearRect(50,10,50,50)
+    let canvasSize;
 
-    /*
-    .fillText recibe el texto, el eje X y Y, con 
-    .fillAlign = 'center' lo centra a partir de la 
-    coordenada X y desde ahi lo centra
-    */
-   
-   game.font = '25px Verdana'
-   game.fillStyle = "purple"
-   game.textAlign = 'center'
-   game.fillText("Platzi", 40, 30)
+    if(window.innerHeight > window.innerWidth){
+        canvasSize = window.innerWidth * 0.8;
+    }else{
+        canvasSize = window.innerHeight * 0.8;
+    }
+
+    canvas.setAttribute('width', canvasSize)
+    canvas.setAttribute('height', canvasSize)
+
+   const elementsSize = canvasSize / 10;
+
+   game.font = elementsSize + 'px Verdana'
+   game.textAlign = 'end';
+
+   for (let i = 1; i <= 10; i++) {
+       game.fillText(emojis['X'], elementsSize * i, elementsSize)
+   }
 
 }
