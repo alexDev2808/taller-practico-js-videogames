@@ -1,7 +1,7 @@
-const canvas = document.querySelector('#game')
+const canvas = document.querySelector('#game');
 
 // canvas.getContext('2d') para obtener el contexto para un juego en 2d
-const game = canvas.getContext('2d')
+const game = canvas.getContext('2d');
 
 let canvasSize;
 let elementsSize;
@@ -24,8 +24,8 @@ function setCanvasSize(){
         canvasSize = window.innerHeight * 0.8;
     }
 
-    canvas.setAttribute('width', canvasSize)
-    canvas.setAttribute('height', canvasSize)
+    canvas.setAttribute('width', canvasSize);
+    canvas.setAttribute('height', canvasSize);
 
    elementsSize = canvasSize / 10;
 
@@ -34,11 +34,26 @@ function setCanvasSize(){
 
 function startGame(){
 
-   game.font = elementsSize + 'px Verdana'
+   game.font = elementsSize + 'px Verdana';
    game.textAlign = 'end';
 
-   for (let i = 1; i <= 10; i++) {
-       game.fillText(emojis['X'], elementsSize * i, elementsSize)
+
+//    Acceder al arreglo de mapas(strings)
+   const map = maps[1];
+//    Limpiar con trim() los espacios en blanco(Al inicio y final), despues dividirlo por saltos de linea .split(')
+   const mapRows = map.trim().split("\n");
+//    Utilizamos map para devolver un nuevo array limpiando los espacios en blanco de cada linea, y dividirlos por cada caracter
+   const mapRowsCol = mapRows.map(row => row.trim().split(''));
+   console.log(mapRows);
+   console.log(mapRowsCol);
+
+
+   for (let row = 1; row <= 10; row++) {
+       for(let col = 1; col <= 10; col++){
+        // Accedemos a los emojis en su respectiva posicion
+        // mapRowsCol[row-1] ya que estos empiezan en la posicion 0
+            game.fillText(emojis[mapRowsCol[row - 1][col - 1]], elementsSize * col, elementsSize * row);
+       }
    }
 
 }
