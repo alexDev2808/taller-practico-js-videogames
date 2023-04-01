@@ -44,16 +44,25 @@ function startGame(){
    const mapRows = map.trim().split("\n");
 //    Utilizamos map para devolver un nuevo array limpiando los espacios en blanco de cada linea, y dividirlos por cada caracter
    const mapRowsCol = mapRows.map(row => row.trim().split(''));
-   console.log(mapRows);
-   console.log(mapRowsCol);
+   // console.log(mapRows);
+   // console.log(mapRowsCol);
+
+   mapRowsCol.forEach((row, rowI) => {
+      row.forEach((col, colI) => {
+         const emoji = emojis[col];
+         const posX = elementsSize * (colI + 1);
+         const posY = elementsSize * (rowI + 1);
+         game.fillText(emoji, posX, posY);
+      })
+   })
 
 
-   for (let row = 1; row <= 10; row++) {
-       for(let col = 1; col <= 10; col++){
-        // Accedemos a los emojis en su respectiva posicion
-        // mapRowsCol[row-1] ya que estos empiezan en la posicion 0
-            game.fillText(emojis[mapRowsCol[row - 1][col - 1]], elementsSize * col, elementsSize * row);
-       }
-   }
+   // for (let row = 1; row <= 10; row++) {
+   //     for(let col = 1; col <= 10; col++){
+   //      // Accedemos a los emojis en su respectiva posicion
+   //      // mapRowsCol[row-1] ya que estos empiezan en la posicion 0
+   //          game.fillText(emojis[mapRowsCol[row - 1][col - 1]], elementsSize * col, elementsSize * row);
+   //     }
+   // }
 
 }
