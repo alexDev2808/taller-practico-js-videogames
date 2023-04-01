@@ -10,6 +10,11 @@ const btnDown = document.querySelector('#down');
 let canvasSize;
 let elementsSize;
 
+const playerPosition = {
+   x: undefined,
+   y: undefined
+}
+
 // Ejecutar la funcion startGame despues de haber cargado el html, el window
 window.addEventListener('load', setCanvasSize);
 
@@ -43,7 +48,7 @@ function startGame(){
 
 
 //    Acceder al arreglo de mapas(strings)
-   const map = maps[1];
+   const map = maps[0];
 //    Limpiar con trim() los espacios en blanco(Al inicio y final), despues dividirlo por saltos de linea .split(')
    const mapRows = map.trim().split("\n");
 //    Utilizamos map para devolver un nuevo array limpiando los espacios en blanco de cada linea, y dividirlos por cada caracter
@@ -56,19 +61,22 @@ function startGame(){
          const emoji = emojis[col];
          const posX = elementsSize * (colI + 1);
          const posY = elementsSize * (rowI + 1);
+
+         if(col == 'O'){
+            playerPosition.x = posX;
+            playerPosition.y = posY; 
+            console.log(playerPosition)
+         }
+
          game.fillText(emoji, posX, posY);
       })
    })
 
+   movePlayer();
+}
 
-   // for (let row = 1; row <= 10; row++) {
-   //     for(let col = 1; col <= 10; col++){
-   //      // Accedemos a los emojis en su respectiva posicion
-   //      // mapRowsCol[row-1] ya que estos empiezan en la posicion 0
-   //          game.fillText(emojis[mapRowsCol[row - 1][col - 1]], elementsSize * col, elementsSize * row);
-   //     }
-   // }
-
+function movePlayer() {
+   game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
 }
 
 window.addEventListener('keydown', moveByKeys);
@@ -86,6 +94,8 @@ function moveByKeys(event) {
 
 function moveUp() {
    console.log("Me quiero mover hacia arriba");
+   playerPosition.y -= elementsSize;
+   movePlayer();
 }
 function moveLeft() {
    console.log("Me quiero mover hacia la izquierda");
